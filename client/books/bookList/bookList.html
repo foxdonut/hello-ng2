@@ -7,7 +7,7 @@
        <span data-element="title">{{book.title}}</span>
       (<span data-element="author">{{book.author}}</span>)
     </li>
-    <bookItem *ng-for="#book of bookList"></bookItem>
+    <bookItem *ng-for="#book of bookList" [book]="book"></bookItem>
   </ul>
 </div>
 

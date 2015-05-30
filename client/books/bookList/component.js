@@ -10,7 +10,7 @@ var BookItem = function() {
   };
 };
 BookItem.annotations = [
-  new angular.ComponentAnnotation({ selector: "bookItem" }),
+  new angular.ComponentAnnotation({ selector: "bookItem", properties: { book: "book" } }),
   new angular.ViewAnnotation({ template: require("./bookItem.html") })
 ];
 
