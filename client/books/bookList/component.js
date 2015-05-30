@@ -25,6 +25,12 @@ module.exports = function(Pubsub) {
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
     };
+    this.onEdit = function() {
+      console.log("onEdit");
+    };
+    this.onDelete = function() {
+      console.log("onDelete");
+    };
     ps.pubsub.subscribe(BookEvents.DATA, self.onDataChange);
   };
   BookList.annotations = [

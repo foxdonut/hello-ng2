@@ -1,11 +1,9 @@
 <div>
   <div data-element="heading">Book list:</div>
   <ul data-element="bookList">
-    <!--bookItem *for="#book of bookList"></bookItem-->
-    <!--li data-element="book" *for="#book of bookList"-->
     <li data-element="book" *ng-for="#book of bookList">
-      <!--button data-action="edit" (click)="onEdit($event)">Edit</button-->
-      <!--button data-action="delete" (click)="onDelete($event)">Delete</button-->
+      <button data-action="edit" (click)="onEdit($event)">Edit</button>
+      <button data-action="delete" (click)="onDelete($event)">Delete</button>
        <span data-element="title">{{book.title}}</span>
       (<span data-element="author">{{book.author}}</span>)
     </li>
