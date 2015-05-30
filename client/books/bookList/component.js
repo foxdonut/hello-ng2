@@ -19,6 +19,7 @@ module.exports = function(Pubsub) {
   var BookList = function(ps) {
     console.log("creating BookList");
     var self = this;
+    self.bookList = [];
 
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
@@ -31,8 +32,8 @@ module.exports = function(Pubsub) {
       injectables: [Pubsub]
     }),
     new angular.ViewAnnotation({
-      template: "BookList here" /* require("./bookList.html") ,
-      directives: [ BookItem, angular.For ] */
+      template: require("./bookList.html"),
+      directives: [/*BookItem, angular.For*/]
     })
   ];
   BookList.parameters = [[Pubsub]];
