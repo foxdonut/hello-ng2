@@ -22,11 +22,13 @@ module.exports = function(Pubsub) {
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
     };
-    this.onEdit = function() {
-      console.log("onEdit");
+    this.onEdit = function(event, book) {
+      event.preventDefault();
+      console.log("onEdit", book);
     };
-    this.onDelete = function() {
-      console.log("onDelete");
+    this.onDelete = function(event, book) {
+      event.preventDefault();
+      console.log("onDelete", book);
     };
     ps.pubsub.subscribe(BookEvents.DATA, self.onDataChange);
     ps.pubsub.publish(BookEvents.READY);
