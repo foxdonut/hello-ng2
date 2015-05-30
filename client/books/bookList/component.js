@@ -16,14 +16,14 @@ BookItem.annotations = [
 
 module.exports = function(Pubsub) {
   console.log("prepare BookList");
-  var BookList = function(pubsub) {
+  var BookList = function(ps) {
     console.log("creating BookList");
     var self = this;
 
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
     };
-    //pubsub.subscribe(BookEvents.DATA, self.onDataChange);
+    ps.pubsub.subscribe(BookEvents.DATA, self.onDataChange);
   };
   BookList.annotations = [
     new angular.ComponentAnnotation({
