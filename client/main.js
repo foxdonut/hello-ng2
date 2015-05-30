@@ -4,7 +4,7 @@ require("reflect-metadata");
 var angular = require("angular2");
 var pubsub = require("./pubsub/pubsub-jquery");
 var Pubsub = function() {
-  this.pubsub = pubsub;
+  return pubsub;
 };
 var BookEvents = require("./books/events");
 
