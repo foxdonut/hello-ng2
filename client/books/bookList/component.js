@@ -1,46 +1,33 @@
-var React = require("react");
+var angular = require("angular2");
 var BookEvents = require("../events");
 
-var BookItem = React.createClass({
-  onEdit: function() {
-    this.props.pubsub.publish(BookEvents.EDIT, this.props.book);
-  },
-  onDelete: function() {
-    this.props.pubsub.publish(BookEvents.DELETE, this.props.book);
-  },
+var BookItem = function() {
+  this.onEdit = function() {
+    //pubsub.publish(BookEvents.EDIT, this.props.book);
+  };
+  this.onDelete = function() {
+    //pubsub.publish(BookEvents.DELETE, this.props.book);
+  };
+};
+BookItem.annotations = [
+  new angular.ComponentAnnotation({ selector: "bookItem" }),
+  new angular.ViewAnnotation({ template: require("./bookItem.html") })
+];
 
-  render: function() {
-    var book = this.props.book;
+var BookList = function(pubsub) {
+  var self = this;
 
-    return (
-    );
-  }
-});
-
-var BookList = React.createClass({
-  getInitialState: function() {
-    return {
-      bookList: []
-    };
-  },
-  componentDidMount: function() {
-    this.props.pubsub.subscribe(BookEvents.DATA, this.onDataChange);
-  },
-  componentWillUnmount: function() {
-    this.props.pubsub.unsubscribe(BookEvents.DATA, this.onDataChange);
-  },
-
-  onDataChange: function(bookList) {
-    this.setState({bookList: bookList});
-  },
-
-  render: function() {
-    var pubsub = this.props.pubsub;
-    var bookList = this.state.bookList;
-
-    return (
-    );
-  }
-});
+  self.onDataChange = function(bookList) {
+    self.bookList = bookList;
+  };
+  pubsub.subscribe(BookEvents.DATA, self.onDataChange);
+};
+BookList.annotations = [
+  new angular.ComponentAnnotation({ selector: "bookList" }),
+  new angular.ViewAnnotation({
+    template: require("./bookList.html"),
+    directives: [ BookItem, angular.For ]
+  })
+];
 
 module.exports = BookList;
