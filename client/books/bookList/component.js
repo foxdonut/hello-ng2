@@ -40,7 +40,7 @@ module.exports = function(Pubsub) {
     }),
     new angular.ViewAnnotation({
       template: require("./bookList.html"),
-      directives: [/*BookItem,*/ angular.NgFor]
+      directives: [angular.NgFor, BookItem]
     })
   ];
   BookList.parameters = [[Pubsub]];
