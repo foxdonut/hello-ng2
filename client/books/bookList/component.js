@@ -15,12 +15,9 @@ BookItem.annotations = [
 ];
 
 module.exports = function(Pubsub) {
-  console.log("prepare BookList");
-  console.log("angular.NgFor:", angular.NgFor);
   var BookList = function(ps) {
-    console.log("creating BookList");
     var self = this;
-    self.bookList = [{title:"Book Title", author:"The Author"}];
+    self.bookList = [];
 
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
@@ -32,6 +29,7 @@ module.exports = function(Pubsub) {
       console.log("onDelete");
     };
     ps.pubsub.subscribe(BookEvents.DATA, self.onDataChange);
+    ps.pubsub.publish(BookEvents.READY);
   };
   BookList.annotations = [
     new angular.ComponentAnnotation({

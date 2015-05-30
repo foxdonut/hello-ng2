@@ -4,7 +4,6 @@ require("reflect-metadata");
 var angular = require("angular2");
 var pubsub = require("./pubsub/pubsub-jquery");
 var Pubsub = function() {
-  console.log("create Pubsub");
   this.pubsub = pubsub;
 };
 var BookEvents = require("./books/events");
@@ -15,7 +14,6 @@ require("./books/store")(pubsub, bookResource);
 var BookList = require("./books/bookList/component")(Pubsub);
 
 var App = function() {
-  console.log("create App");
 };
 
 App.annotations = [
@@ -30,8 +28,5 @@ App.annotations = [
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("bootstrap");
   angular.bootstrap(App);
-  pubsub.publish(BookEvents.READY);
-  console.log("done");
 });
