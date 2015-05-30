@@ -14,20 +14,26 @@ BookItem.annotations = [
   new angular.ViewAnnotation({ template: require("./bookItem.html") })
 ];
 
-var BookList = function(pubsub) {
-  var self = this;
+module.exports = function(pubsub) {
+  var BookList = function(pubsub) {
+    var self = this;
 
-  self.onDataChange = function(bookList) {
-    self.bookList = bookList;
+    self.onDataChange = function(bookList) {
+      self.bookList = bookList;
+    };
+    pubsub.subscribe(BookEvents.DATA, self.onDataChange);
   };
-  pubsub.subscribe(BookEvents.DATA, self.onDataChange);
-};
-BookList.annotations = [
-  new angular.ComponentAnnotation({ selector: "bookList" }),
-  new angular.ViewAnnotation({
-    template: require("./bookList.html"),
-    directives: [ BookItem, angular.For ]
-  })
-];
+  BookList.annotations = [
+    new angular.ComponentAnnotation({
+      selector: "bookList",
+      injectables: [ pubsub ]
+    }),
+    new angular.ViewAnnotation({
+      template: require("./bookList.html"),
+      directives: [ BookItem, angular.For ]
+    })
+  ];
+  BookList.parameters = [ pubsub ];
 
-module.exports = BookList;
+  return BookList;
+};

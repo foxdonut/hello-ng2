@@ -3,12 +3,12 @@ require("reflect-metadata");
 
 var angular = require("angular2");
 var pubsub = require("./pubsub/pubsub-jquery");
-var BookEvents = require("./events");
+var BookEvents = require("./books/events");
 
 var bookResource = require("./resource/resource-jquery")("/books");
 require("./books/store")(pubsub, bookResource);
 
-var BookList = require("./books/bookList/component");
+var BookList = require("./books/bookList/component")(pubsub);
 
 var App = function() {};
 
@@ -24,4 +24,3 @@ document.addEventListener("DOMContentLoaded", function() {
   angular.bootstrap(App);
   pubsub.publish(BookEvents.READY);
 });
-
