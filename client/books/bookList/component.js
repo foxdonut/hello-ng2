@@ -16,10 +16,11 @@ BookItem.annotations = [
 
 module.exports = function(Pubsub) {
   console.log("prepare BookList");
+  console.log("angular.NgFor:", angular.NgFor);
   var BookList = function(ps) {
     console.log("creating BookList");
     var self = this;
-    self.bookList = [];
+    self.bookList = [{title:"Book Title", author:"The Author"}];
 
     self.onDataChange = function(bookList) {
       self.bookList = bookList;
@@ -33,7 +34,7 @@ module.exports = function(Pubsub) {
     }),
     new angular.ViewAnnotation({
       template: require("./bookList.html"),
-      directives: [/*BookItem, angular.For*/]
+      directives: [/*BookItem,*/ angular.NgFor]
     })
   ];
   BookList.parameters = [[Pubsub]];
