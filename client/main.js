@@ -1,5 +1,6 @@
 require("core-js");
 require("reflect-metadata");
+require("zone.js");
 
 var angular = require("angular2");
 var pubsub = require("./pubsub/pubsub-jquery");
