@@ -5,6 +5,10 @@ module.exports = function(Pubsub) {
   var BookItem = function(pubsub) {
     this.onEdit = function(event, book) {
       event.preventDefault();
+      console.log("book before:", book);
+      book.title = "CHANGED";
+      console.log("book after:", book);
+      console.log("this book:", this.book);
       pubsub.publish(BookEvents.EDIT, book);
     };
     this.onDelete = function(event, book) {
@@ -26,10 +30,16 @@ module.exports = function(Pubsub) {
 
   var BookList = function(pubsub) {
     var self = this;
-    self.bookList = [];
+    self.bookList = [{title:"Test", author:"Test"}];
 
     self.onDataChange = function(bookList) {
-      console.log("bookList", bookList);
+      self.bookList.push({title:"Change", author:"Change"});
+      console.log("bookList", self.bookList);
+      /*
+      var args = [0, self.bookList.length].concat(bookList);
+      self.bookList.splice.apply(self.bookList, args);
+      console.log("bookList now:", self.bookList);
+      */
       self.bookList = bookList;
     };
     pubsub.subscribe(BookEvents.DATA, self.onDataChange);
