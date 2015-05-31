@@ -14,6 +14,10 @@ require("./books/store")(pubsub, bookResource);
 var BookList = require("./books/bookList/component")(Pubsub);
 
 var App = function() {
+  this.obj = { val: "initial" };
+  this.handleClick = function() {
+    this.obj.val = "changed";
+  };
 };
 
 App.annotations = [
