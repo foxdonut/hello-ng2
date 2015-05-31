@@ -39,11 +39,17 @@ module.exports = function(Pubsub) {
       var args = [0, self.bookList.length].concat(bookList);
       self.bookList.splice.apply(self.bookList, args);
       console.log("bookList now:", self.bookList);
-      */
       self.bookList = bookList;
+      */
     };
     pubsub.subscribe(BookEvents.DATA, self.onDataChange);
     pubsub.publish(BookEvents.READY);
+
+    self.handleClick = function() {
+      console.log("handleClick");
+      self.bookList.push({title:"Change", author:"Change"});
+      console.log("bookList", self.bookList);
+    };
   };
   BookList.annotations = [
     new angular.ComponentAnnotation({
