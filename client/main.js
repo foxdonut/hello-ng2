@@ -1,6 +1,7 @@
 require("core-js");
 require("reflect-metadata");
 require("zone.js");
+// https://github.com/angular/angular/blob/master/modules/angular2/docs/core/12_zones.md
 
 var angular = require("angular2");
 var pubsub = require("./pubsub/pubsub-jquery");

@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <button data-action="new" (click)="onNew()">New Book</button>
+  </div>
+  <form data-element="bookForm" (submit)="onSave()">
+    <div>Author:</div>
+    <div><input type="text" data-field="author" value={this.state.book.author}/></div>
+
+    <div>Title:</div>
+    <div><input type="text" data-field="title" value={this.state.book.title}/></div>
+
+    <div>
+      <input data-action="save" type="submit" value="Save"/>
+      <button data-action="cancel" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
