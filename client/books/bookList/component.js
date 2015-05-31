@@ -33,9 +33,9 @@ module.exports = function(Pubsub) {
     self.bookList = [{title:"Test", author:"Test"}];
 
     self.onDataChange = function(bookList) {
+      /*
       self.bookList.push({title:"Change", author:"Change"});
       console.log("bookList", self.bookList);
-      /*
       var args = [0, self.bookList.length].concat(bookList);
       self.bookList.splice.apply(self.bookList, args);
       console.log("bookList now:", self.bookList);
