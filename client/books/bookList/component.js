@@ -1,6 +1,6 @@
 var angular = require("angular2");
 var BookEvents = require("../events");
-var zone = require("zone.js").zone;
+//var zone = require("zone.js").zone;
 
 module.exports = function(Pubsub) {
   var BookItem = function(pubsub) {
@@ -11,10 +11,8 @@ module.exports = function(Pubsub) {
     };
     this.onDelete = function(event, book) {
       event.preventDefault();
-      zone.run(function() {
-        pubsub.publish(BookEvents.DELETE, book);
-        console.log("deleted:", book);
-      });
+      pubsub.publish(BookEvents.DELETE, book);
+      console.log("deleted:", book);
     };
   };
   BookItem.annotations = [
@@ -37,10 +35,8 @@ module.exports = function(Pubsub) {
       var args = [0, self.bookList.length].concat(bookList);
       self.bookList.splice.apply(self.bookList, args);
     };
-    zone.run(function() {
-      pubsub.subscribe(BookEvents.DATA, self.onDataChange);
-      pubsub.publish(BookEvents.READY);
-    });
+    pubsub.subscribe(BookEvents.DATA, self.onDataChange);
+    pubsub.publish(BookEvents.READY);
 
     self.handleClick = function() {
       self.bookList.push({title:"Change", author:"Change"});

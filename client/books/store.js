@@ -26,7 +26,7 @@ var store = function(pubsub, bookResource) {
 
       if (index >= 0 && index < bookList.length) {
         bookList.splice(index, 1);
-        //publishData();
+        publishData();
       }
     });
   };
