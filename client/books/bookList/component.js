@@ -6,7 +6,6 @@ module.exports = function(Pubsub) {
   var BookItem = function(pubsub) {
     this.onEdit = function(event, book) {
       event.preventDefault();
-      book.title = "CHANGED";
       pubsub.publish(BookEvents.EDIT, book);
     };
     this.onDelete = function(event, book) {

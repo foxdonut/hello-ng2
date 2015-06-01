@@ -2,12 +2,12 @@
   <div>
     <button data-action="new" (click)="onNew($event)">New Book</button>
   </div>
-  <form data-element="bookForm" *ng-if="editing" (submit)="onSave($event, book)">
+  <form data-element="bookForm" *ng-if="editing" (submit)="onSave($event, author.value, title.value)">
     <div>Author:</div>
-    <div><input type="text" data-field="author" #book.author/></div>
+    <div><input type="text" data-field="author" #author value="{{book.author}}"/></div>
 
     <div>Title:</div>
-    <div><input type="text" data-field="title" #book.title/></div>
+    <div><input type="text" data-field="title" #title value="{{book.title}}"/></div>
 
     <div>
       <input data-action="save" type="submit" value="Save"/>

@@ -3,31 +3,35 @@ var BookEvents = require("../events");
 
 module.exports = function(Pubsub) {
   var BookForm = function(pubsub) {
-    this.editing = false;
-    this.book = {};
+    var self = this;
 
-    this.onEdit = function(book) {
-      this.book = book;
-      this.editing = true;
+    self.editing = false;
+    self.book = {};
+
+    self.onEdit = function(book) {
+      self.book = book;
+      self.editing = true;
     };
 
-    pubsub.subscribe(BookEvents.EDIT, this.onEdit);
+    pubsub.subscribe(BookEvents.EDIT, self.onEdit);
 
-    this.onNew = function(event) {
+    self.onNew = function(event) {
       event.preventDefault();
-      this.editing = true;
+      self.editing = true;
     };
 
-    this.onSave = function(event, book) {
+    self.onSave = function(event, author, title) {
       event.preventDefault();
-      pubsub.publish(BookEvents.SAVE, book);
-      this.editing = false;
-      this.book = {};
+      self.book.author = author;
+      self.book.title = title;
+      pubsub.publish(BookEvents.SAVE, self.book);
+      self.editing = false;
+      self.book = {};
     };
-    this.onCancel = function(event) {
+    self.onCancel = function(event) {
       event.preventDefault();
-      this.editing = false;
-      this.book = {};
+      self.editing = false;
+      self.book = {};
     };
   };
   BookForm.annotations = [
