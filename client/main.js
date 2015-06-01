@@ -14,6 +14,7 @@ var bookResource = require("./resource/resource-jquery")("/books");
 require("./books/store")(pubsub, bookResource);
 
 var BookList = require("./books/bookList/component")(Pubsub);
+var BookForm = require("./books/bookForm/component")(Pubsub);
 
 var App = function() {
   this.obj = { val: "initial" };
@@ -29,7 +30,7 @@ App.annotations = [
   }),
   new angular.ViewAnnotation({
     template: require("./template.html"),
-    directives: [BookList]
+    directives: [BookList, BookForm]
   })
 ];
 

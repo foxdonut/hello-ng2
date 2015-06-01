@@ -1,60 +1,46 @@
-var React = require("react");
+var angular = require("angular2");
 var BookEvents = require("../events");
 
-var BookForm = React.createClass({
-  getInitialState: function() {
-    return {
-      book: {},
-      editing: false
+module.exports = function(Pubsub) {
+  var BookForm = function(pubsub) {
+    this.editing = false;
+    this.book = {};
+
+    this.onEdit = function(book) {
+      this.book = book;
+      this.editing = true;
     };
-  },
-  componentDidMount: function() {
-    this.props.pubsub.subscribe(BookEvents.EDIT, this.onEdit);
-  },
-  componentWillUnmount: function() {
-    this.props.pubsub.unsubscribe(BookEvents.EDIT, this.onEdit);
-  },
 
-  onEdit: function(book) {
-    this.setState({editing: true, book: book});
-  },
+    pubsub.subscribe(BookEvents.EDIT, this.onEdit);
 
-  onNew: function() {
-    this.setState({editing: true});
-  },
-
-  onSave: function(event) {
-    event.preventDefault();
-    this.props.pubsub.publish(BookEvents.SAVE, this.state.book);
-    this.setState({editing: false, book: {}});
-  },
-  onCancel: function(event) {
-    event.preventDefault();
-    this.setState({editing: false, book: {}});
-  },
-
-  onChangeText: function(field) {
-    var self = this;
-
-    return function(event) {
-      var book = self.state.book;
-      book[field] = event.target.value;
-      self.setState({book: book});
+    this.onNew = function(event) {
+      event.preventDefault();
+      this.editing = true;
     };
-  },
 
-  render: function() {
-    var book = this.state.book;
+    this.onSave = function(event, book) {
+      event.preventDefault();
+      pubsub.publish(BookEvents.SAVE, book);
+      this.editing = false;
+      this.book = {};
+    };
+    this.onCancel = function(event) {
+      event.preventDefault();
+      this.editing = false;
+      this.book = {};
+    };
+  };
+  BookForm.annotations = [
+    new angular.ComponentAnnotation({
+      selector: "bookForm",
+      injectables: [Pubsub]
+    }),
+    new angular.ViewAnnotation({
+      template: require("./bookForm.html"),
+      directives: [angular.NgIf]
+    })
+  ];
+  BookForm.parameters = [[Pubsub]];
 
-    var form = null;
-    if (this.state.editing) {
-      form = (
-      );
-    }
-
-    return (
-    );
-  }
-});
-
-module.exports = BookForm;
+  return BookForm;
+};
