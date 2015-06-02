@@ -4,10 +4,17 @@
   "description": "Try an example with Angular 2.",
   "main": "server/main.js",
   "config": {
-    "generatedApp": "./public/generated-app.js"
+    "generatedApp": "./public/generated-app.js",
+    "ng2es5": "node_modules/angular2-es5",
+    "ng2rtts": "node_modules/rtts_assert"
   },
   "scripts": {
-    "postinstall": "babel node_modules/angular2/es6/dev --out-dir node_modules/angular2-es5 && mkdir -p node_modules/angular2-es5/node_modules && cp -r node_modules/angular2/node_modules/rx node_modules/angular2-es5/node_modules/",
+    "ng2es5-build": "babel node_modules/angular2/es6/dev --out-dir $npm_package_config_ng2es5",
+    "ng2es5-rtts": "babel node_modules/angular2/node_modules/rtts_assert/es6 --out-dir $npm_package_config_ng2rtts && rm -f $npm_package_config_ng2rtts/es5build.js",
+    "ng2es5-copy-rx": "mkdir -p $npm_package_config_ng2es5/node_modules && cp -r node_modules/angular2/node_modules/rx $npm_package_config_ng2es5/node_modules/",
+    "ng2es5-rename": "mv node_modules/angular2 node_modules/angular2-original && mv $npm_package_config_ng2es5 node_modules/angular2",
+    "ng2es5-package": "npm run ng2es5-build && npm run ng2es5-rtts && npm run ng2es5-copy-rx && npm run ng2es5-rename",
+    "postinstall": "[ -d node_modules/angular2-original ] || npm run ng2es5-package",
     "build": "browserify ./client/main.js --debug -o $npm_package_config_generatedApp && echo 'Ready.'",
     "tsbuild": "browserify ./client/main.ts -p [ tsify --noImplicitAny --target 'ES5' ] --debug -o $npm_package_config_generatedApp && echo 'Ready.'",
     "watch": "watchify ./client/main.js --debug --verbose -o $npm_package_config_generatedApp",
