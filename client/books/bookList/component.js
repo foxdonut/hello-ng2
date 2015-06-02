@@ -1,4 +1,4 @@
-var angular = require("angular2");
+var angular = require("angular2/angular2");
 var BookEvents = require("../events");
 //var zone = require("zone.js").zone;
 

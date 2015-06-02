@@ -9,7 +9,7 @@
   "scripts": {
     "build": "browserify ./client/main.js --debug -o $npm_package_config_generatedApp && echo 'Ready.'",
     "tsbuild": "browserify ./client/main.ts -p [ tsify --noImplicitAny --target 'ES5' ] --debug -o $npm_package_config_generatedApp && echo 'Ready.'",
-    "prestart": "npm run build",
+    "xprestart": "npm run build",
     "watch": "watchify ./client/main.js --debug --verbose -o $npm_package_config_generatedApp",
     "tswatch": "watchify ./client/main.ts -p [ tsify --noImplicitAny --target 'ES5' ] --debug --verbose -o $npm_package_config_generatedApp",
     "start": "node server/main"
